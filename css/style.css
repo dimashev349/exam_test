@@ -109,12 +109,14 @@ ul, li {
 
 .description {
     width: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     background: url("../images/background.jpg") center no-repeat;
-    background-size: 100%;
+    background-size: cover;
+    position: relative;
 }
 
 .description-text {
@@ -141,8 +143,10 @@ ul, li {
     font-size: 24px;
     color: white;
 }
-.description-go .header-link {
-    bottom: 0;
+.description .header-link {
+    bottom: 40px;
+    background: rgba(255, 255, 255, .4) url(../images/icons/down-arrow.svg) center no-repeat;
+    background-size: 20px 20px;
 }
 
 .subjects {
@@ -169,24 +173,54 @@ ul, li {
     width: 100%;
     height: 100%;
     text-decoration: none;
-    color: #262626;
+    color: #fff;
     font-size: 24px;
     font-weight: 600;
     text-transform: uppercase;
-}
-.subjects-element:first-child {
-    background: linear-gradient(to left, #33ccff 0%, #0099cc 100%);
+    position: relative;
 }
 
-.subjects-element:last-child {
-    background: linear-gradient(to right, #33ccff 0%, #0099cc 100%);
+.subjects-element__wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .3);
+    transition: background-color .3s ease;
+    z-index: 1;
+}
+
+.subjects-element span {
+    position: relative;
+    z-index: 2;
+}
+
+#first {
+    background: url("../images/math.jpg") center no-repeat;
+    background-size: cover;
+}
+
+#second {
+    background: url("../images/rus.jpg") center no-repeat;
+    background-size: cover;
+}
+
+#third {
+    background: url("../images/info.jpg") center no-repeat;
+    background-size: cover;
+}
+
+#fourth {
+    background: url("../images/physics.jpg") center no-repeat;
+    background-size: cover;
 }
 
 .subjects-element:first-child {
     border-right: 1px solid #9e9e9e;
 }
-.subjects-element:hover {
-    background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
+.subjects-element:hover .subjects-element__wrapper {
+    background: rgba(0, 0, 0, .7);
 }
 
 .test-name {

@@ -421,9 +421,9 @@ const results = {
 let activeTest = null;
 
 document.addEventListener('DOMContentLoaded', function () {
+    /** Тест по математике */
     const mathForm = document.getElementById("maths");
-        if (mathForm) {
-
+    if (mathForm) {
         activeTest = results.maths;
 
         for (let i = 0; i < results.maths.length; i++) {
@@ -438,9 +438,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         mathForm.append(createSubmitButton());
     }
+
+    /** Тест по русскому языку */
     const russianForm = document.getElementById("russian_language");
     if (russianForm) {
-
         activeTest = results.russian_language;
 
         for (let i = 0; i < results.russian_language.length; i++) {
@@ -455,9 +456,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         russianForm.append(createSubmitButton());
     }
+
+    /** Тест по информатике */
     const informForm = document.getElementById("informatics");
     if (informForm) {
-
         activeTest = results.informatics;
 
         for (let i = 0; i < results.informatics.length; i++) {
@@ -472,9 +474,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         informForm.append(createSubmitButton());
     }
+
+    /** Тест по физике */
     const physicForm = document.getElementById("physics");
     if (physicForm) {
-
         activeTest = results.physics;
 
         for (let i = 0; i < results.physics.length; i++) {
@@ -489,46 +492,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
         physicForm.append(createSubmitButton());
     }
+
+    // Слушатель для клика по внешней области попапа
     let popupWrapper = document.getElementById('popup');
     if (popupWrapper) popupWrapper.addEventListener('click', closePopup);
-    
+
+    // Слушатель для закрытия попапа
     let closer = document.querySelector(".closer");
     if (closer) closer.addEventListener('click', closePopup);
+
+    // Плавный scroll к элементам
+    document.querySelectorAll('a[href^="#"').forEach(link => {
+
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            let href = this.getAttribute('href').substring(1);
+
+            const scrollTarget = document.getElementById(href);
+
+            //const topOffset = document.querySelector('.scrollto').offsetHeight;
+            const topOffset = 0; // если не нужен отступ сверху
+            const elementPosition = scrollTarget.getBoundingClientRect().top;
+            const offsetPosition = elementPosition - topOffset;
+
+            window.scrollBy({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        });
+    });
 });
-
-function createAnswer(answer, i) {
-    let div = document.createElement('div');
-    div.className = "question_wrapper";
-
-    let p = document.createElement('p');
-    p.className = "question";
-    p.innerHTML = answer.answer;
-
-    div.append(p);
-
-    let ul = document.createElement("ul");
-    for (let j = 0; j < answer.answers.length; j++) {
-        let li = document.createElement("li");
-
-        let input = document.createElement("input");
-        input.type = "radio";
-        input.name = "answer" + i;
-        input.value = answer.answers[j];
-
-        let label = document.createElement("label");
-        label.innerText = answer.answers[j];
-
-        li.append(input);
-        li.append(label);
-
-        ul.append(li);
-    }
-
-    div.append(ul);
-
-    return div;
-}
-
 
 function createPart(text) {
     let p = document.createElement('p');
