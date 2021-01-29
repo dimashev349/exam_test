@@ -1,0 +1,390 @@
+#first_teg {
+    color: red;  
+    background: gold;
+    display: block;
+    text-align: center;
+    margin: 0;
+    font-size: 50px;
+}
+
+#second_teg {
+    color: white;
+    background: green;
+    display: block;
+    text-align: center;
+    margin: 0;
+    font-size: 50px;
+}
+
+#third_teg {
+    color: white; 
+    background: blue;
+    display: block;
+    text-align: center;
+    margin: 0;
+    font-size: 50px;
+}
+
+#fourth_teg {
+    color: yellow;
+    background: gray;
+    display: block;
+    text-align: center;
+    margin: 0;
+    font-size: 50px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style-type: none;
+}
+
+.button_submit {
+    display: inline-block;
+    width: 250px;
+    height: 35px;
+    line-height: 35px;
+    box-shadow: none;
+    border: none;
+    background-color: #76bc21;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-text {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 40px;
+    font-family: Helvetica, sans-serif;
+
+}
+.header-text.white {
+    color: #ff0000;
+    background-color: #fff;
+}
+.header-text.blue {
+    color: #fff;
+    background-color: #0000ff;
+}
+.header-text.red {
+    color: #fff;
+    background-color: #ff0000;
+}
+
+.header-link {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background: rgba(0, 0, 0, .2) url("../images/icons/down-arrow.svg") center no-repeat;
+    background-size: 20px 20px;
+    position: absolute;
+    bottom: 20px;
+    transition: all .25s ease;
+
+}
+.header-link:hover {
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.description {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: url("../images/background.jpg") center no-repeat;
+    background-size: 100%;
+}
+
+.description-text {
+    text-align: center;
+    font-size: 24px;
+    line-height: 40px;
+    margin: 0;
+    color: white;
+}
+
+.description-good-luck {
+    text-align: center;
+    font-size: 34px;
+    margin-top: 30px;
+    color: white;
+}
+
+.description-go {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    padding-bottom: 50px;
+    font-size: 24px;
+    color: white;
+}
+.description-go .header-link {
+    bottom: 0;
+}
+
+.subjects {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.subjects-row {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    border-bottom: 1px solid #9e9e9e;
+}
+.subjects-row:last-child {
+    border: none;
+}
+
+.subjects-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: #262626;
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.subjects-element:first-child {
+    background: linear-gradient(to left, #33ccff 0%, #0099cc 100%);
+}
+
+.subjects-element:last-child {
+    background: linear-gradient(to right, #33ccff 0%, #0099cc 100%);
+}
+
+.subjects-element:first-child {
+    border-right: 1px solid #9e9e9e;
+}
+.subjects-element:hover {
+    background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
+}
+
+.test-name {
+    text-align: center;
+}
+
+.question_part {
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+    background-color: #d9d9d9;
+}
+
+.question_wrapper {
+    padding: 10px;
+}
+
+.question {
+    margin: 0;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.question-answers-list {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.question-answer {
+    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.question-answer input {
+    margin-right: 10px;
+    cursor: pointer;
+}
+.question-answer label {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.test-result {
+    margin-top: 20px;
+}
+
+.test-result-success {
+    color: #76bc21;
+}
+.test-result-errors {
+    color: red;
+}
+
+.question_image {
+    display: block;
+}
+
+.popup_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.5);
+}
+
+.popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #fff;
+    padding: 30px 50px;
+    border-radius: 2px;
+}
+
+.popup_image {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 30px;
+}
+.popup_image.error {
+    background: url("../images/icons/error.svg") center no-repeat;
+    background-size: contain;
+}
+
+.popup_text {
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.closer {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    background: url("../images/icons/close.svg") top no-repeat;
+    background-size: contain;
+    border: none;
+    margin: 0;
+    cursor: pointer;
+}
+/*span {
+    background-color: black;
+    display: block;
+    color: orange;
+    font-style: italic;
+}
+
+div span {
+    font-size: 24px;
+    color: blue;
+}
+
+#first {
+    background-color: purple;
+    color: aqua;
+    text-decoration: none;
+    display: block;
+    font-size: 40px;
+}
+#first:hover {
+    color: green;
+    font-weight: bold;
+    text-transform: lowercase;
+    font-size: 75px;
+}
+
+#second {
+    background-color: green;
+    color: black;
+    text-decoration: none;
+    display: block;
+    font-size: 40px;
+    font-weight:  bold;
+}
+#second:hover {
+    color: red;
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-size: 60px;
+}
+
+#third {
+    background-color: red;
+    color: black;
+    text-decoration: none;
+    display: block;
+    font-size: 40px;
+    font-weight:  bold;
+}
+#third:hover {
+    color: blue;
+    font-style: italic;
+    font-size: 50px;
+}
+
+div p {
+    color: purple;
+    font-size: 50px;
+    display: inline;
+}*/
+/* Свойство color - меняет цвет текста. В нашем случае на красный (red) */
+/* Свойство font-size - меняет размер текста. В нашем случае - это 50px */
+/* Свойство background-color устанавленивает заливку для элемента */
+/* Свойство display указывает, какая структура должна быть у тега. В нашем случае указываем inline,
+    т.е. делаем наш тег h1 строчным */
+/* Для управления наведением на элемент существует специальный псевдокласс (свойство) :hover */
+/* Свойство text-decoration устанавливает какие-то стили для текста. В нашем случае убирает все стили с помощью none */
+/* Значение underline свойства text-decoration делает текст подчеркнутым */
+/*/ padding работает как margin, но отступы внутри элемента /
+    padding-left: 10px;
+/*
+    border - это рамка элемента
+    1 параметр у border - это толщина рамки
+    2 параметр у border - это интенсивность линии
+    3 параметр у border - это цвет рамки
+     */
+   /* border: 3px solid black;
+
+*/
+/*
+     text-align - отвечает за расположение текста в блоке.
+     text-align: center - по центру
+     text-align: left - по левому краю
+     text-align: right - по правому краю
+     ТОЛЬКО для блочных тегов
+     */

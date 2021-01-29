@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест для проверки знаний к ОГЭ</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="header">
+        <p class="header-text white">Готов ли ты к ОГЭ?</p>
+        <p class="header-text blue">Давай проверим твои знания с помощью нескольких тестов.</p>
+        <p class="header-text red">Пожалуйста, прочитай небольшое предисловие перед началом теста.</p>
+        <a href="#description" class="header-link"></a>
+    </div>
+
+    <div id="description" class="description">
+        <p class="description-text">Каждый тест делится на <b>две части</b>:<br/><i>1-я часть</i> - теория; <i>2-я часть</i> - практика.<br/><b>Поэтому, подготовь лист бумаги для решения задач!</b><br/><br/>В тесте по <b>20 вопросов</b>.<br/>Тест не ограничен по времени, но <b>рекомендуемое время</b> 90 минут.</p>
+        <p class="description-good-luck">Теперь ты можешь приступать!<br/><b>Удачи!</b></p>
+        <div class="description-go">
+            <p class="description-go-test">Выбери предмет с которого хочешь начать...</p>
+            <a href="#subjects" class="header-link"></a>
+        </div>
+    </div>
+
+    <div id="subjects" class="subjects">
+        <div class="subjects-row">
+            <a href="maths.html" target="_blank" class="subjects-element" id="first_exam">Математика</a>
+            <a href="russian_language.html" target="_blank" class="subjects-element" id="second_exam">Русский язык</a>
+        </div>
+        <div class="subjects-row">
+            <a href="informatics.html" target="_blank" class="subjects-element" id="third_exam">Информатика</a>
+            <a href="physics.html" target="_blank" class="subjects-element" id="fourd_exam">Физика</a>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
+<!-- В теге link мы подключили стили к нашей странице
+     Атрибут rel указывает, какой тип документа подключается. В нашем случае - это stylesheet, или таблица стилей
+     Атрибут href указывает, какой файл нужно подключить (у файла стилей должно быть расширение .css -->
+ <!-- h1 - блочный тег, занимает всю ширину своего родителя (т.е. блока, в котором он находоится.
+    В нашем случае он занимает всю ширину тега body -->
+<!-- Теги span являются строчными тегами, т.е. они занимают всю ширину, необходимую для их содержимого, но не более -->
+<!-- p - блочный тег. Занимает всю ширину тега body -->
+<!-- div - блочный тег. Также занимает всю ширину тега body -->
+<!-- span - строчный тег. Занимает ширину содержимого текста -->
+<!-- p - блочный тег, но в данном случае он занимает всю ширину тега div, потому что находится в нем -->
+<!-- a - строчный тег, т.е. занимает ровно ширину текста внутри -->
+<!-- Решетка в атрибуте href тега a означает, что ссылка будет ссылаться на текущую страницу -->
+<!-- 1. margin - внешний отступ тега. Он является первым слоем тега -->
+<!-- 2. border - рамка тега. Она является вторым слоем тега. border является внутренним свойством тега -->
+<!-- 3. padding - внутренний отсуп тега. От является 3-м внутренним свойстом тега -->
+<!-- 4. Сам элемент тега -->
