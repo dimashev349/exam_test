@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /** Тест по математике */
     const mathForm = document.getElementById("maths");
     if (mathForm) {
-        activeTest = results.maths;
+        activeTest = "maths";
 
         for (let i = 0; i < results.maths.length; i++) {
             let element = results.maths[i];
@@ -442,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /** Тест по русскому языку */
     const russianForm = document.getElementById("russian_language");
     if (russianForm) {
-        activeTest = results.russian_language;
+        activeTest = "russian_language";
 
         for (let i = 0; i < results.russian_language.length; i++) {
             let element = results.russian_language[i];
@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /** Тест по информатике */
     const informForm = document.getElementById("informatics");
     if (informForm) {
-        activeTest = results.informatics;
+        activeTest = "informatics";
 
         for (let i = 0; i < results.informatics.length; i++) {
             let element = results.informatics[i];
@@ -478,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /** Тест по физике */
     const physicForm = document.getElementById("physics");
     if (physicForm) {
-        activeTest = results.physics;
+        activeTest = "physics";
 
         for (let i = 0; i < results.physics.length; i++) {
             let element = results.physics[i];
@@ -579,12 +579,25 @@ function createAnswer(answer, i) {
 }
 
 function formProcessing() {
+    if (window.localStorage.getItem(activeTest)) {
+        let div = document.querySelector('.test-result');
+        if (!div) {
+            div = document.createElement('div');
+            div.className = "test-result";
+            document.body.append(div);
+        }
+
+        div.innerHTML = window.localStorage.getItem(activeTest);
+
+        return;
+    }
+
     let obResult = {
         "errors": [],
         "success": 0
     };
 
-    for (let i = 0; i < activeTest.length; i++) {
+    for (let i = 0; i < results.activeTest.length; i++) {
         let element = document.querySelector("input[name=answer" + i + "]:checked");
 
         if (!element) {
@@ -596,17 +609,19 @@ function formProcessing() {
             popup.style.display = "flex";
             return;
         } else {
-            if (element.value == activeTest[i].correct) {
+            if (element.value == results.activeTest[i].correct) {
                 obResult.success++;
             } else {
-                let errorText = `Вопрос ${i + 1}: ${activeTest[i].answer}<br/>
-                                Вы ответили: ${activeTest[i].answers[element.value]}<br/>
-                                Правильный ответ: ${activeTest[i].answers[activeTest[i].correct]}<br/><br/>`;
+                let errorText = `<i><b>Вопрос ${i + 1}: ${results.activeTest[i].answer}</b></i><br/>
+                                Вы ответили: <b style="color: red;">${results.activeTest[i].answers[element.value]}</b><br/>
+                                Правильный ответ: <b style="color: #76bc21;">${results.activeTest[i].answers[results.activeTest[i].correct]}</b><br/><br/>`;
 
                 obResult.errors.push(errorText);
             }
         }
     }
+
+    if (obResult.errors.length > 0) obResult.errors.unshift(`<p>Вы допустили ошибки в следующий вопросах:</p>`);
 
     let div = document.querySelector('.test-result');
     if (!div) {
@@ -619,15 +634,27 @@ function formProcessing() {
 
     let success = document.createElement('div');
     success.className = "test-result-success";
-    success.innerHTML = `Вы правильно ответили на ${obResult.success} вопрос(ов) из ${activeTest.length}`;
+    success.innerHTML = `Вы правильно ответили на ${obResult.success} вопрос(ов) из ${results.activeTest.length}`;
     div.append(success);
+
+    let successPersent = Math.floor(obResult.success / results.activeTest.length * 100);
+    let result = document.createElement('div');
+    result.className = "test-result-percent";
+    if (successPersent < 80) {
+        result.classList.add("fail");
+        result.innerHTML = `Вы набрали ${successPersent}%. Тест не пройден.`;
+    } else {
+        result.classList.add("success");
+        result.innerHTML = `Вы набрали ${successPersent}%. Тест пройден.`;
+    }
+    div.append(result);
 
     let errors = document.createElement('div');
     errors.className = "test-result-errors";
     errors.innerHTML = obResult.errors.reduce((el1, el2) => el1 + el2, "");
     div.append(errors);
 
-    // todo сколько процентов нужно на прохождение
+    window.localStorage.setItem(activeTest, div.toString());
 }
 
 function closePopup(event) {
