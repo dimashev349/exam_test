@@ -419,6 +419,7 @@ const results = {
 };
 
 let activeTest = null;
+let testResults = null;
 
 document.addEventListener('DOMContentLoaded', function () {
     /** Тест по математике */
@@ -426,17 +427,22 @@ document.addEventListener('DOMContentLoaded', function () {
     if (mathForm) {
         activeTest = "maths";
 
-        for (let i = 0; i < results.maths.length; i++) {
-            let element = results.maths[i];
+        testResults = JSON.parse(window.localStorage.getItem(activeTest));
+        if (!testResults) {
+            for (let i = 0; i < results.maths.length; i++) {
+                let element = results.maths[i];
 
-            if (element.part) {
-                mathForm.append(createPart(element.part));
+                if (element.part) {
+                    mathForm.append(createPart(element.part));
+                }
+
+                mathForm.append(createAnswer(results.maths[i], i));
             }
 
-            mathForm.append(createAnswer(results.maths[i], i));
+            mathForm.append(createSubmitButton());
+        } else {
+            mathForm.append(createRetryButton());
         }
-
-        mathForm.append(createSubmitButton());
     }
 
     /** Тест по русскому языку */
@@ -444,17 +450,22 @@ document.addEventListener('DOMContentLoaded', function () {
     if (russianForm) {
         activeTest = "russian_language";
 
-        for (let i = 0; i < results.russian_language.length; i++) {
-            let element = results.russian_language[i];
+        testResults = JSON.parse(window.localStorage.getItem(activeTest));
+        if (!testResults) {
+            for (let i = 0; i < results.russian_language.length; i++) {
+                let element = results.russian_language[i];
 
-            if (element.part) {
-                russianForm.append(createPart(element.part));
+                if (element.part) {
+                    russianForm.append(createPart(element.part));
+                }
+
+                russianForm.append(createAnswer(results.russian_language[i], i));
             }
 
-            russianForm.append(createAnswer(results.russian_language[i], i));
+            russianForm.append(createSubmitButton());
+        } else {
+            russianForm.append(createRetryButton());
         }
-
-        russianForm.append(createSubmitButton());
     }
 
     /** Тест по информатике */
@@ -462,17 +473,22 @@ document.addEventListener('DOMContentLoaded', function () {
     if (informForm) {
         activeTest = "informatics";
 
-        for (let i = 0; i < results.informatics.length; i++) {
-            let element = results.informatics[i];
+        testResults = JSON.parse(window.localStorage.getItem(activeTest));
+        if (!testResults) {
+            for (let i = 0; i < results.informatics.length; i++) {
+                let element = results.informatics[i];
 
-            if (element.part) {
-                informForm.append(createPart(element.part));
+                if (element.part) {
+                    informForm.append(createPart(element.part));
+                }
+
+                informForm.append(createAnswer(results.informatics[i], i));
             }
 
-            informForm.append(createAnswer(results.informatics[i], i));
+            informForm.append(createSubmitButton());
+        } else {
+            informForm.append(createRetryButton());
         }
-
-        informForm.append(createSubmitButton());
     }
 
     /** Тест по физике */
@@ -480,17 +496,22 @@ document.addEventListener('DOMContentLoaded', function () {
     if (physicForm) {
         activeTest = "physics";
 
-        for (let i = 0; i < results.physics.length; i++) {
-            let element = results.physics[i];
+        testResults = JSON.parse(window.localStorage.getItem(activeTest));
+        if (!testResults) {
+            for (let i = 0; i < results.physics.length; i++) {
+                let element = results.physics[i];
 
-            if (element.part) {
-                physicForm.append(createPart(element.part));
+                if (element.part) {
+                    physicForm.append(createPart(element.part));
+                }
+
+                physicForm.append(createAnswer(results.physics[i], i));
             }
 
-            physicForm.append(createAnswer(results.physics[i], i));
+            physicForm.append(createSubmitButton());
+        } else {
+            physicForm.append(createRetryButton());
         }
-
-        physicForm.append(createSubmitButton());
     }
 
     // Слушатель для клика по внешней области попапа
@@ -500,6 +521,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Слушатель для закрытия попапа
     let closer = document.querySelector(".closer");
     if (closer) closer.addEventListener('click', closePopup);
+
+    if (testResults) {
+        createResults();
+    }
 
     // Плавный scroll к элементам
     document.querySelectorAll('a[href^="#"').forEach(link => {
@@ -542,6 +567,15 @@ function createSubmitButton() {
     return btn;
 }
 
+function createRetryButton() {
+    let btn = document.createElement('button');
+    btn.className = "button_retry";
+    btn.innerText = "Пройти тест заново";
+    btn.addEventListener('click', removeResults);
+
+    return btn;
+}
+
 function createAnswer(answer, i) {
     let div = document.createElement('div');
     div.className = "question_wrapper";
@@ -579,25 +613,12 @@ function createAnswer(answer, i) {
 }
 
 function formProcessing() {
-    if (window.localStorage.getItem(activeTest)) {
-        let div = document.querySelector('.test-result');
-        if (!div) {
-            div = document.createElement('div');
-            div.className = "test-result";
-            document.body.append(div);
-        }
-
-        div.innerHTML = window.localStorage.getItem(activeTest);
-
-        return;
-    }
-
     let obResult = {
         "errors": [],
         "success": 0
     };
 
-    for (let i = 0; i < results.activeTest.length; i++) {
+    for (let i = 0; i < results[activeTest].length; i++) {
         let element = document.querySelector("input[name=answer" + i + "]:checked");
 
         if (!element) {
@@ -609,12 +630,12 @@ function formProcessing() {
             popup.style.display = "flex";
             return;
         } else {
-            if (element.value == results.activeTest[i].correct) {
+            if (element.value == results[activeTest][i].correct) {
                 obResult.success++;
             } else {
-                let errorText = `<i><b>Вопрос ${i + 1}: ${results.activeTest[i].answer}</b></i><br/>
-                                Вы ответили: <b style="color: red;">${results.activeTest[i].answers[element.value]}</b><br/>
-                                Правильный ответ: <b style="color: #76bc21;">${results.activeTest[i].answers[results.activeTest[i].correct]}</b><br/><br/>`;
+                let errorText = `<i><b>Вопрос ${i + 1}: ${results[activeTest][i].answer}</b></i><br/>
+                                Вы ответили: <b style="color: red;">${results[activeTest][i].answers[element.value]}</b><br/>
+                                Правильный ответ: <b style="color: #76bc21;">${results[activeTest][i].answers[results[activeTest][i].correct]}</b><br/><br/>`;
 
                 obResult.errors.push(errorText);
             }
@@ -622,6 +643,16 @@ function formProcessing() {
     }
 
     if (obResult.errors.length > 0) obResult.errors.unshift(`<p>Вы допустили ошибки в следующий вопросах:</p>`);
+
+    if (!window.localStorage.getItem(activeTest)) window.localStorage.setItem(activeTest, JSON.stringify(obResult));
+
+    testResults = JSON.parse(window.localStorage.getItem(activeTest));
+
+    createResults();
+}
+
+function createResults() {
+    if (!testResults) return;
 
     let div = document.querySelector('.test-result');
     if (!div) {
@@ -634,27 +665,55 @@ function formProcessing() {
 
     let success = document.createElement('div');
     success.className = "test-result-success";
-    success.innerHTML = `Вы правильно ответили на ${obResult.success} вопрос(ов) из ${results.activeTest.length}`;
+    success.innerHTML = `Вы правильно ответили на ${testResults.success} вопрос(ов) из ${results[activeTest].length}`;
     div.append(success);
 
-    let successPersent = Math.floor(obResult.success / results.activeTest.length * 100);
+    let successPersent = Math.floor(testResults.success / results[activeTest].length * 100);
+    let mark = 2;
+
+    if (successPersent > 25 && successPersent <= 60) {
+        mark = 3;
+    } else if (successPersent > 60 && successPersent <= 85) {
+        mark = 4;
+    } else if (successPersent > 85) {
+        mark = 5;
+    }
+
     let result = document.createElement('div');
     result.className = "test-result-percent";
-    if (successPersent < 80) {
+    if (successPersent <= 60) {
         result.classList.add("fail");
-        result.innerHTML = `Вы набрали ${successPersent}%. Тест не пройден.`;
+        result.innerHTML = `Вы набрали ${successPersent}%. Ваша оценка: ${mark}.`;
     } else {
         result.classList.add("success");
-        result.innerHTML = `Вы набрали ${successPersent}%. Тест пройден.`;
+        result.innerHTML = `Вы набрали ${successPersent}%. Ваша оценка: ${mark}.`;
     }
     div.append(result);
 
     let errors = document.createElement('div');
     errors.className = "test-result-errors";
-    errors.innerHTML = obResult.errors.reduce((el1, el2) => el1 + el2, "");
+    errors.innerHTML = testResults.errors.reduce((el1, el2) => el1 + el2, "");
     div.append(errors);
 
-    window.localStorage.setItem(activeTest, div.toString());
+    // Плавный скролл к результатам
+    const topOffset = 100; // если не нужен отступ сверху
+    const elementPosition = div.getBoundingClientRect().top;
+    const offsetPosition = elementPosition - topOffset;
+
+    window.scrollBy({
+        top: offsetPosition,
+        behavior: 'smooth'
+    });
+}
+
+function removeResults(e) {
+    e.preventDefault();
+
+    if (!activeTest) return;
+
+    window.localStorage.removeItem(activeTest);
+
+    window.location.reload();
 }
 
 function closePopup(event) {
