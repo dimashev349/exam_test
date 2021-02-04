@@ -683,10 +683,10 @@ function createResults() {
     result.className = "test-result-percent";
     if (successPersent <= 60) {
         result.classList.add("fail");
-        result.innerHTML = `Вы набрали ${successPersent}%. Ваша оценка: ${mark}. Вам следует подтянуть ваши знания.`;
+        result.innerHTML = `Вы набрали ${successPersent}%. Ваша оценка: ${mark}. Вывод: вам следует подтянуть ваши знания.`;
     } else {
         result.classList.add("success");
-        result.innerHTML = `Вы набрали ${successPersent}%. Ваша оценка: ${mark}. Поздравляю, вы сдали ОГЭ.`;
+        result.innerHTML = `Вы набрали ${successPersent}%. Ваша оценка: ${mark}. Вывод: поздравляю, вы сдали ОГЭ.`;
     }
     
     div.append(result);
